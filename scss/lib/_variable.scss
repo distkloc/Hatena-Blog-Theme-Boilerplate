@@ -3,15 +3,20 @@
 // Background color
 $background: #fff;
 $bg-light: #f5f5f5;
+$bg-blog-header: #2d3038;
+$bg-header-bar: #19bc9c;
 
 // text color
-$text: #454545;
+$text: #656565;
 $text-light: #999;
-$text-header: #333;
+$text-header: #656565;
+$text-blog-header: #fff;
+$text-footer: #fff;
 
 // link
-$link: #1487bd;
-$hover: darken($link, 10%);
+$link: #19bc9c;
+$hover: $text;
+$text-header-hover: $link;
 
 // border
 $border: #ddd;

@@ -8,11 +8,12 @@ body {
 }
 a {
   color: $link;
+  transition: color 0.2s ease-in-out;
+  text-decoration: none;
   &:hover {
     color: $hover;
   }
   &.keyword {
-    text-decoration: none;
     border-bottom: 1px dotted $border;
     color: $text;
   }
@@ -29,7 +30,7 @@ h6 {
     color: $text-header;
     text-decoration: none;
     &:hover {
-      color: $hover;
+      color: $text-header-hover;
     }
   }
 }
@@ -39,23 +40,16 @@ h6 {
   #globalheader-container に背景色や文字色を指定することでiframeの中にも色が反映されます。
 */
 #globalheader-container {
-  background-color: $text;
+  background-color: $bg-blog-header;
   color: $background;
 }
 
 /* container */
 #container,
 #footer {
-  padding-left: 10px;
-  padding-right: 10px;
   @media #{$mq-sm} {
-    width: 720px;
-    margin: auto;
     padding-left: 0;
     padding-right: 0;
-  }
-  @media #{$mq-md} {
-    width: 940px;
   }
 }
 
@@ -66,16 +60,24 @@ h6 {
 #content-inner {
   flex-direction: column;
   align-items: center;
+  padding-top: 1em;
 }
 #wrapper {
+  background-color: $background;
+  margin: 0 1.5em;
+}
+#main {
+  margin: auto;
+
   @media #{$mq-sm} {
     width: 100%;
   }
   @media #{$mq-md} {
-    max-width: 720px;
+    max-width: 800px;
   }
 }
 #box2 {
+  padding: 1.5em 1.5em 0;
   width: 100%;
   @media #{$mq-sm} {
     width: 100%;
@@ -83,6 +85,8 @@ h6 {
   @media #{$mq-md} {
     width: 100%;
   }
+
+  background: $bg-blog-header;
 }
 
 #box2-inner {
@@ -112,21 +116,54 @@ h6 {
 
 /* ヘッダ */
 #blog-title {
-  margin: 2em 0;
+  padding: 6em 0;
   text-align: center;
+
   @media #{$mq-sm} {
-    margin: 3em 0;
-    text-align: left;
+    padding: 11em 0;
+    text-align: center;
   }
+
+  background: $bg-blog-header;
 }
 #title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 2.9rem;
+  font-family: "Ubuntu", sans-serif;
   @media #{$mq-md} {
-    font-size: 1.7rem;
+    font-size: 3.4rem;
   }
   a {
-    color: $text;
+    color: $text-blog-header;
+    padding: 1rem 2rem;
+    position: relative;
+
+    // border design
+    // https://codepen.io/valentingalmand/pen/ggKrpY
+    &:after,
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: 5px solid #fff;
+      transition: transform 0.2s;
+    }
+    &:after {
+      transform: translate(5px, 5px);
+    }
+
+    &:before {
+      transform: translate(-5px, -5px);
+    }
+    &:hover {
+      &:after,
+      &:before {
+        transform: translate(0);
+      }
+    }
   }
 }
 #blog-description {
@@ -154,11 +191,34 @@ h6 {
 /* タイトル下HTML */
 #top-editarea {
   margin-bottom: 1em;
+
+  background: $bg-header-bar
+    url(https://cdn.rawgit.com/distkloc/SankakuValidator/master/resources/header-polygon-bar.svg?201405060408)
+    no-repeat 0 0;
+  height: 76px;
+
+  #my-social-icons {
+    margin: 0;
+    padding-right: 1rem;
+    list-style: none;
+
+    li {
+      opacity: 0.8;
+      float: right;
+      margin: 4px 5px 0;
+      transition: opacity 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 /* パンくず（カテゴリー、記事ページで表示されます） */
 .breadcrumb {
   font-size: 0.9rem;
+  margin: 0 1.5em;
 }
 
 /* entry */
@@ -174,20 +234,18 @@ h6 {
 }
 .date {
   margin-bottom: 0.5em;
-  font-size: 0.9rem;
+  font-size: 1.3rem;
+  font-family: "Ubuntu", sans-serif;
   a {
     color: $text-light;
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }
 .entry-title {
   margin: 0 0 0.3em;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   @media #{$mq-md} {
-    font-size: 1.6rem;
+    font-size: 2.1rem;
   }
 }
 .categories {
@@ -195,6 +253,17 @@ h6 {
   font-size: 0.9rem;
   a {
     margin-right: 0.5em;
+
+    font-weight: bold;
+    color: $link;
+    border: 2px solid $link;
+    padding: 5px 15px;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: $background;
+      background-color: $link;
+    }
   }
 }
 
@@ -207,6 +276,11 @@ h6 {
 
 /* 記事内の書式 */
 .entry-content {
+  font-size: 1rem;
+  @media #{$mq-md} {
+    font-size: 1.2rem;
+  }
+
   img,
   video {
     max-width: 100%;
@@ -221,31 +295,31 @@ h6 {
     margin: 1em 0 0.8em 0;
   }
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     @media #{$mq-md} {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
     }
   }
   h2 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     @media #{$mq-md} {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
   }
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     @media #{$mq-md} {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
     }
   }
   h4 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   h5 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   h6 {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   ul,
   ol,
@@ -303,8 +377,8 @@ h6 {
     white-space: pre-wrap;
     text-overflow: ellipsis;
     line-height: 1.3;
-    font-size: 0.8rem;
-    padding: 10px;
+    font-size: 1rem;
+    padding: 20px;
     & > code {
       margin: 0;
       padding: 0;
@@ -422,9 +496,17 @@ h6 {
 .hatena-module {
   box-sizing: border-box;
   margin-bottom: 3em;
+  color: #fff;
   font-size: 0.85rem;
   @media #{$mq-sm} {
     font-size: 0.9rem;
+  }
+  a {
+    color: $text-footer;
+    text-decoration: none;
+    &:hover {
+      color: $link;
+    }
   }
 }
 .hatena-module-title {
@@ -433,13 +515,6 @@ h6 {
   border-bottom: 1px solid $border;
   font-size: 1rem;
   font-weight: bold;
-  a {
-    color: $text;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 /* Profile module */
@@ -469,12 +544,6 @@ h6 {
     padding: 0.5em 0;
     &:last-child {
       padding-bottom: 0;
-    }
-    a {
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
   .urllist-category-link {
@@ -507,6 +576,10 @@ h6 {
     border: none;
     outline: none;
     height: 20px;
+
+    &::placeholder {
+      color: $text-light;
+    }
   }
   .search-module-button {
     width: 24px;
@@ -556,6 +629,9 @@ h6 {
   }
   .entry-title {
     margin: 0.3em auto;
+  }
+  .categories {
+    padding: 0 0 0.5em 0;
   }
   .entry-thumb {
     width: 80px;
